@@ -1,0 +1,3 @@
+# Ignore all .db files
+*.db
+sqlite3.exe
