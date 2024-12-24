@@ -11,21 +11,44 @@ def login():
     login_query = cursor.fetchone()
 
     if login_query is None:
-        print("Fail")
+        print("Login Fail")
         login()
     else:
-        view_passwords()
+        print("Login Successful!")
+        menu()
 
-# Function to view all the passwords and select options
+# Function to select options
+def menu():
+    print("Type in the corresponding number to select an option")
+    print("1) View passwords")
+    print("2) Add a password")
+    print("3) Exit")
+
+    try:
+        choice = int(input())
+
+        if choice == 1:
+            view_passwords()
+        elif choice == 2:
+            add_password()
+        elif choice == 3:
+            exit()
+    except ValueError:
+        print("You can only type in numbers")
+        menu()
+
 def view_passwords():
-    print("Passwords!")
+    print("View your passwords")
+    cursor.execute("SELECT * FROM passwords;")
+
+def add_password():
+    print("Add a password to the database")
 
 for x in cursor.execute("SELECT * FROM master_login"):
     print(x)
 
-login()
+menu()
 
 con.close()
 
-# Allow user to use master password to sign in
 # User can save username, email, password, website name, url and add notes
