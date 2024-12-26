@@ -1,5 +1,6 @@
 import sqlite3
 
+# Connect to the database
 con = sqlite3.connect("passwords.db")
 cursor = con.cursor()
 
@@ -7,14 +8,14 @@ cursor = con.cursor()
 def login():
     name = input("Enter name: ")
     master_password = input("Enter master password: ")
-    cursor.execute(f"SELECT * FROM master_login WHERE name='{name}' AND master_password='{master_password}';")
+    cursor.execute(f"SELECT * FROM master_login WHERE name=? AND master_password=?;", (name, master_password))
     login_query = cursor.fetchone()
 
     if login_query is None:
         print("Login Fail")
         login()
     else:
-        print("Login Successful!")
+        print("\nLogin Successful!\n")
         menu()
 
 # Function to select options
@@ -22,7 +23,7 @@ def menu():
     print("Type in the corresponding number to select an option")
     print("1) View passwords")
     print("2) Add a password")
-    print("3) Exit")
+    print("3) Exit\n")
 
     try:
         choice = int(input())
@@ -37,18 +38,32 @@ def menu():
         print("You can only type in numbers")
         menu()
 
+# Function to view available passwords
 def view_passwords():
-    print("View your passwords")
-    cursor.execute("SELECT * FROM passwords;")
+    print("\n*-----------Your passwords-----------*\n")
 
+    for x in cursor.execute("SELECT website_name, url, username, email, notes FROM passwords;"):
+        print(x)
+        print("\n")
+    menu()
+
+# Function to add a new password
 def add_password():
-    print("Add a password to the database")
+    print("\n*-----------Add a password to the database-----------*\n")
 
-for x in cursor.execute("SELECT * FROM master_login"):
-    print(x)
+    website_name = input("Website Name: ")
+    url = input("URL: ")
+    username = input("Username: ")
+    email = input("Email: ")
+    notes = input("Notes: ")
 
-menu()
+    cursor.execute("INSERT INTO passwords (website_name, url, username, email, notes) VALUES (?, ?, ?, ?, ?);", (website_name, url, username, email, notes))
+    con.commit()
+
+    print("\nInformation Added!\n")
+
+    menu()
+
+login()
 
 con.close()
-
-# User can save username, email, password, website name, url and add notes
