@@ -43,7 +43,21 @@ def view_passwords():
     print("\n*-----------Your passwords-----------*\n")
 
     for x in cursor.execute("SELECT website_name, url, username, email, notes, password FROM passwords;"):
-        print(x)
+        website_name, url, username, email, notes, password = x
+        
+        # Display the website name as a header
+        print(website_name)
+        print("-" * (len(website_name)))  # Dynamic underline for readability
+
+        # Display each field with a title
+        print(f"URL: {url}")
+        print(f"Username: {username}")
+        print(f"Email: {email}")
+        print(f"Notes: {notes}")
+        print(f"Password: {password}")
+
+        print("\n")  # Add space between entries
+
         print("\n")
     menu()
 
