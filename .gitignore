@@ -2,3 +2,6 @@
 *.db
 sqlite3.exe
 *.txt
+/dist
+/build
+*.spec
