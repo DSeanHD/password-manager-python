@@ -42,7 +42,7 @@ def menu():
 def view_passwords():
     print("\n*-----------Your passwords-----------*\n")
 
-    for x in cursor.execute("SELECT website_name, url, username, email, notes FROM passwords;"):
+    for x in cursor.execute("SELECT website_name, url, username, email, notes, password FROM passwords;"):
         print(x)
         print("\n")
     menu()
@@ -55,9 +55,10 @@ def add_password():
     url = input("URL: ")
     username = input("Username: ")
     email = input("Email: ")
+    password = input("Password: ")
     notes = input("Notes: ")
 
-    cursor.execute("INSERT INTO passwords (website_name, url, username, email, notes) VALUES (?, ?, ?, ?, ?);", (website_name, url, username, email, notes))
+    cursor.execute("INSERT INTO passwords (website_name, url, username, email, notes, password) VALUES (?, ?, ?, ?, ?, ?);", (website_name, url, username, email, notes, password))
     con.commit()
 
     print("\nInformation Added!\n")
