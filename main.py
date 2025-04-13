@@ -53,12 +53,10 @@ def view_passwords():
         print(f"URL: {url}")
         print(f"Username: {username}")
         print(f"Email: {email}")
-        print(f"Notes: {notes}")
         print(f"Password: {password}")
+        print(f"Notes: {notes}")
 
         print("\n")  # Add space between entries
-
-        print("\n")
     menu()
 
 # Function to add a new password
